@@ -1,0 +1,7 @@
+# MeiCommando
+
+## About
+MeiCommando is the command framework for my bot it is pretty much just a copy of [discord.js/commando](https://github.com/discordjs/Commando) but with some changes for my bot.
+
+## Installation
+**Node 8.6.0 or newer is required.**
