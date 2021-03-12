@@ -1,7 +1,7 @@
 {
-	"name": "djs-meiframework",
+	"name": "djs-meicommando",
 	"version": "0.0.1",
-	"description": "Mei Bot command/event framework for Discord.js",
+	"description": "Mei Bot command framework for Discord.js",
 	"license": "Apache-2.0",
 	"author": "Arcadia1488",
 	"repository": {
