@@ -5,3 +5,4 @@ MeiCommando is the command framework for my bot it is pretty much just a copy of
 
 ## Installation
 **Node 8.6.0 or newer is required.**
+`npm install https://github.com/Arcadia1488/MeiCommando/`
