@@ -141,6 +141,7 @@ module.exports = Structures.extend('Message', Message => {
 				 * @param {string} reason - Reason that the command was blocked
 				 * (built-in reasons are `guildOnly`, `nsfw`, `permission`, `throttling`, and `clientPermissions`)
 				 * @param {Object} [data] - Additional data associated with the block. Built-in reason data properties:
+				 * - guild: none
 				 * - guildOnly: none
 				 * - nsfw: none
 				 * - permission: `response` ({@link string}) to send
@@ -152,7 +153,7 @@ module.exports = Structures.extend('Message', Message => {
 			}
 
 			// Make sure the command is usable in this guild
-			if (this.command.guild) {
+			if (this.command.guild && !this.client.isOwner(this.author.id)) {
 				if (typeof this.command.guild === 'string') {
 					if (this.command.guild !== this.guild.id) {
 						this.client.emit('commandBlock', this, 'guild');
