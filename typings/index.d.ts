@@ -83,6 +83,7 @@ declare module 'djs-meicommando' {
 		public group: CommandGroup;
 		public groupID: string;
 		public guarded: boolean;
+		public guild: string[];
 		public guildOnly: boolean;
 		public hidden: boolean;
 		public memberName: string;
