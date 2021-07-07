@@ -1,6 +1,6 @@
 # MeiCommando
 
-[![Node.js Package](https://github.com/Arcadia1488/MeiCommando/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/Arcadia1488/MeiCommando/actions/workflows/npm-publish.yml)
+[![MeiCommando](https://github.com/Arcadia1488/MeiCommando/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/Arcadia1488/MeiCommando/actions/workflows/npm-publish.yml)
 
 ## About
 MeiCommando is the command framework for my bot it is pretty much just a copy of [discord.js/commando](https://github.com/discordjs/Commando) but with some changes for my bot.
