@@ -28,7 +28,9 @@ class Command {
 	 * @property {string[]} [examples] - Usage examples of the command
 	 * @property {string[]} [guild] - Whether or not the command should only function in a specific guild
 	 * @property {boolean} [guildOnly=false] - Whether or not the command should only function in a guild channel
+	 * @property {boolean} [dmOnly=false] - Whether or not the command should only function in a dm channel
 	 * @property {boolean} [ownerOnly=false] - Whether or not the command is usable only by an owner
+	 * @property {boolean} [contributorOnly=false] - Whether or not the command is usable only by contributors (owners also have access)
 	 * @property {PermissionResolvable[]} [clientPermissions] - Permissions required by the client to use the command.
 	 * @property {PermissionResolvable[]} [userPermissions] - Permissions required by the user to use the command.
 	 * @property {boolean} [nsfw=false] - Whether the command is usable only in NSFW channels.
@@ -143,10 +145,22 @@ class Command {
 		this.guildOnly = Boolean(info.guildOnly);
 
 		/**
+		 * Whether the command can only be run in a dm channel
+		 * @type {boolean}
+		 */
+		this.dmOnly = Boolean(info.dmOnly);
+
+		/**
 		 * Whether the command can only be used by an owner
 		 * @type {boolean}
 		 */
 		this.ownerOnly = Boolean(info.ownerOnly);
+
+		/**
+		 * Whether the command can only be used by a contributor
+		 * @type {boolean}
+		 */
+		this.contributorOnly = Boolean(info.contributorOnly);
 
 		/**
 		 * Permissions required by the client to use the command.
@@ -257,11 +271,15 @@ class Command {
 	 * @returns {boolean|string} Whether the user has permission, or an error message to respond with if they don't
 	 */
 	hasPermission(message, ownerOverride = true) {
-		if (!this.ownerOnly && !this.userPermissions) return true;
+		if (!this.ownerOnly && !this.contributorOnly && !this.userPermissions) return true;
 		if (ownerOverride && this.client.isOwner(message.author)) return true;
 
 		if (this.ownerOnly && (ownerOverride || !this.client.isOwner(message.author))) {
 			return `The \`${this.name}\` command can only be used by the bot owner.`;
+		}
+
+		if (this.contributorOnly && !this.client.isContributor(message.author) && !this.client.isOwner(message.author)) {
+			return `The \`${this.name}\` command can only be used by contributors.`;
 		}
 
 		if (message.channel.type === 'text' && this.userPermissions) {
@@ -317,6 +335,8 @@ class Command {
 				return message.reply(`The \`${this.name}\` command can only be used in specific servers.`);
 			case 'guildOnly':
 				return message.reply(`The \`${this.name}\` command must be used in a server channel.`);
+			case 'dmOnly':
+				return message.reply(`The \`${this.name}\` command must be used in a direct message channel.`);
 			case 'nsfw':
 				return message.reply(`The \`${this.name}\` command can only be used in NSFW channels.`);
 			case 'permission': {

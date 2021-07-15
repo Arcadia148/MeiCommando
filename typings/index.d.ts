@@ -85,11 +85,13 @@ declare module 'djs-meicommando' {
 		public guarded: boolean;
 		public guild: string[];
 		public guildOnly: boolean;
+		public dmOnly: boolean;
 		public hidden: boolean;
 		public memberName: string;
 		public name: string;
 		public nsfw: boolean;
 		public ownerOnly: boolean;
+		public contributorOnly: boolean;
 		public patterns: RegExp[];
 		public throttling: ThrottlingOptions;
 		public unknown: boolean;
@@ -99,7 +101,7 @@ declare module 'djs-meicommando' {
 		public isEnabledIn(guild: GuildResolvable, bypassGroup?: boolean): boolean;
 		public isUsable(message?: Message): boolean;
 		public onBlock(message: CommandoMessage, reason: string, data?: object): Promise<Message | Message[]>;
-		public onBlock(message: CommandoMessage, reason: 'guild' | 'guildOnly' | 'nsfw'): Promise<Message | Message[]>;
+		public onBlock(message: CommandoMessage, reason: 'guild' | 'guildOnly' | 'dmOnly' | 'nsfw'): Promise<Message | Message[]>;
 		public onBlock(message: CommandoMessage, reason: 'permission', data: { response?: string }): Promise<Message | Message[]>;
 		public onBlock(message: CommandoMessage, reason: 'clientPermissions', data: { missing: PermissionString[] }): Promise<Message | Message[]>;
 		public onBlock(message: CommandoMessage, reason: 'throttling', data: { throttle: object, remaining: number }): Promise<Message | Message[]>;
@@ -397,7 +399,9 @@ declare module 'djs-meicommando' {
 		nsfw?: boolean;
 		guild?: string[];
 		guildOnly?: boolean;
+		dmOnly?: boolean;
 		ownerOnly?: boolean;
+		contributorOnly?: boolean;
 		clientPermissions?: PermissionResolvable[];
 		userPermissions?: PermissionResolvable[];
 		defaultHandling?: boolean;
@@ -416,7 +420,7 @@ declare module 'djs-meicommando' {
 	interface CommandoClientEvents extends ClientEvents {
 		commandBlock:
 		| [CommandoMessage, string, object?]
-		| [CommandoMessage, 'guild' | 'guildOnly' | 'nsfw']
+		| [CommandoMessage, 'guild' | 'guildOnly' | 'dmOnly' | 'nsfw']
 		| [CommandoMessage, 'permission', { response?: string }]
 		| [CommandoMessage, 'throttling', { throttle: object, remaining: number }]
 		| [CommandoMessage, 'clientPermissions', { missing: string }];

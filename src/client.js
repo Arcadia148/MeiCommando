@@ -170,7 +170,7 @@ class CommandoClient extends discord.Client {
 
 	/**
 	 * Checks whether a user is a contributor of the bot (in {@link CommandoClientOptions#contributor})
-	 * @param {UserResolvable} user - User to check for ownership
+	 * @param {UserResolvable} user - User to check for contributor
 	 * @returns {boolean}
 	 */
 	isContributor(user) {
